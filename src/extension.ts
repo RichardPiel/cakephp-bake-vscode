@@ -5,11 +5,8 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { window, commands, ExtensionContext, workspace, Uri } from 'vscode';
-import { showQuickPick, showInputBox } from './basicInput';
-import { multiStepInput } from './multiStepInput';
-import { quickOpen } from './quickOpen';
-import * as fs from 'fs';
 
+import extractFilename from "./extractFilename"
 const cp = require('child_process')
 
 export function activate(context: ExtensionContext) {
@@ -153,18 +150,18 @@ export function activate(context: ExtensionContext) {
 
 			let dir_to_file = `${workspace.rootPath}/config/`;
 
-			const regex = /Creating\sfile(.*?)\n/g;
+			const regex = /Creating\ file\ (?<file>(.*?)[/\\][0-9]{14}(.*?)\.php)/;
 			const found = stdout.match(regex);
 
-			console.log('found', found);
-			// expected output: Array ["T", "I"]
+			if (found !== null) {
+				console.log('found FILE : ', found.groups.file);
 
-			// fs.readdir(<fs.PathLike> workspace.rootPath, (err, files) => {
-			// 	console.log('SALUT !!!!!!')
-			// 	files.forEach(file => {
-			// 	  console.log(file);
-			// 	});
-			//   });
+				var openPath = Uri.parse("file:///" + found.groups.file); //A request file path
+				workspace.openTextDocument(openPath).then(doc => {
+					window.showTextDocument(doc);
+				});
+			}
+			
 
 
 			if (err) {

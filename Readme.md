@@ -1,5 +1,5 @@
 # CakePHP Bake
-Extension that allows to easily bake models, controllers, templates and migrations in CakePHP 3/4.
+Extension that allows to easily bake models, controllers, templates, shells, commands, helpers, cells, plugins, components and migrations in CakePHP 3/4.
 
 ## Extension Commands
 
@@ -11,4 +11,10 @@ Extension that allows to easily bake models, controllers, templates and migratio
 |CakePHP Bake: Model| Bake models file |
 |CakePHP Bake: Template| Bake templates file |
 |CakePHP Bake: Migration| Bake migration file |
-|CakePHP Migrations: Migrate| Bigrate migrations |
+|CakePHP Bake: Cell| Bake cell file |
+|CakePHP Bake: Shell| Bake shell file |
+|CakePHP Bake: Command| Bake command file |
+|CakePHP Bake: Helper| Bake helper file |
+|CakePHP Bake: Plugin| Bake plugin file |
+|CakePHP Bake: Component| Bake Component file |
+|CakePHP Migrations: Migrate| Migrate migrations |

@@ -4,8 +4,25 @@
 	"displayName": "CakePHP Bake",
 	"description": "Quickly bake models, templates, controllers and migrations in CakePHP 3/4",
 	"icon": "images/cakephp.png",
-	"keywords": ["php", "framework", "cakephp", "bake", "model", "table", "entity", "migration", "controller", "prefix", "plugin", "php"],
-	"version": "0.0.6",
+	"keywords": [
+		"php",
+		"framework",
+		"cakephp",
+		"bake",
+		"model",
+		"table",
+		"entity",
+		"migration",
+		"controller",
+		"prefix",
+		"plugin",
+		"php",
+		"cell",
+		"helper",
+		"shell",
+		"command"
+	],
+	"version": "0.0.7",
 	"engines": {
 		"vscode": "^1.53.0"
 	},
@@ -21,7 +38,13 @@
 		"onCommand:cakephp-bake.bakeModel",
 		"onCommand:cakephp-bake.bakeTemplate",
 		"onCommand:cakephp-bake.bakeMigration",
-		"onCommand:cakephp-bake.MigrationsMigrate"
+		"onCommand:cakephp-bake.bakeCell",
+		"onCommand:cakephp-bake.bakeHelper",
+		"onCommand:cakephp-bake.bakePlugin",
+		"onCommand:cakephp-bake.bakeCommand",
+		"onCommand:cakephp-bake.bakeShell",
+		"onCommand:cakephp-bake.MigrationsMigrate",
+		"onCommand:cakephp-bake.bakeComponent"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -45,6 +68,30 @@
 			{
 				"command": "cakephp-bake.MigrationsMigrate",
 				"title": "CakePHP Migrations: Migrate"
+			},
+			{
+				"command": "cakephp-bake.bakeCommand",
+				"title": "CakePHP Bake: Command"
+			},
+			{
+				"command": "cakephp-bake.bakeHelper",
+				"title": "CakePHP Bake: Helper"
+			},
+			{
+				"command": "cakephp-bake.bakeCell",
+				"title": "CakePHP Bake: Cell"
+			},
+			{
+				"command": "cakephp-bake.bakeShell",
+				"title": "CakePHP Bake: Shell"
+			},
+			{
+				"command": "cakephp-bake.bakePlugin",
+				"title": "CakePHP Bake: Plugin"
+			},
+			{
+				"command": "cakephp-bake.bakeComponent",
+				"title": "CakePHP Bake: Component"
 			}
 		]
 	},

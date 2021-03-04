@@ -1,0 +1,15 @@
+export const classTypes = [
+	{ label: 'Entity' },
+	{ label: 'Table' },
+	{ label: 'Controller' },
+	{ label: 'Component' },
+	{ label: 'Behavior' },
+	{ label: 'Helper' },
+	{ label: 'Shell' },
+	{ label: 'Task' },
+	{ label: 'ShellHelper' },
+	{ label: 'Cell' },
+	{ label: 'Form' },
+	{ label: 'Mailer' },
+	{ label: 'Command' },
+];

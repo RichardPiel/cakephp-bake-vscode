@@ -22,7 +22,7 @@
 		"shell",
 		"command"
 	],
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"engines": {
 		"vscode": "^1.53.0"
 	},
@@ -44,8 +44,9 @@
 		"onCommand:cakephp-bake.bakeCommand",
 		"onCommand:cakephp-bake.bakeFixture",
 		"onCommand:cakephp-bake.bakeShell",
-		"onCommand:cakephp-bake.MigrationsMigrate",
+		"onCommand:cakephp-bake.migrationsMigrate",
 		"onCommand:cakephp-bake.bakeComponent",
+		"onCommand:cakephp-bake.bakeTest",
 		"onCommand:cakephp-bake.bakeBehavior",
 		"onCommand:cakephp-bake.bakeMailer",
 		"onCommand:cakephp-bake.bakeTask",
@@ -61,6 +62,10 @@
 			{
 				"command": "cakephp-bake.bakeFixture",
 				"title": "CakePHP Bake: Fixture"
+			},
+			{
+				"command": "cakephp-bake.bakeTest",
+				"title": "CakePHP Bake: Test"
 			},
 			{
 				"command": "cakephp-bake.bakeMailer",
@@ -87,7 +92,7 @@
 				"title": "CakePHP Bake: Migration"
 			},
 			{
-				"command": "cakephp-bake.MigrationsMigrate",
+				"command": "cakephp-bake.migrationsMigrate",
 				"title": "CakePHP Migrations: Migrate"
 			},
 			{

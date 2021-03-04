@@ -2,14 +2,16 @@
 	"name": "cakephp-bake",
 	"publisher": "RichardPiel",
 	"displayName": "CakePHP Bake",
-	"description": "Quickly bake models, templates, controllers and migrations in CakePHP 3/4",
+	"description": "Run CakePHP Bake commands within Visual Studio Code",
 	"icon": "images/cakephp.png",
 	"keywords": [
 		"php",
+		"bake",
 		"framework",
 		"cakephp",
 		"bake",
 		"model",
+		"test",
 		"table",
 		"entity",
 		"migration",
@@ -22,7 +24,7 @@
 		"shell",
 		"command"
 	],
-	"version": "0.0.9",
+	"version": "0.1.0",
 	"engines": {
 		"vscode": "^1.53.0"
 	},
@@ -34,23 +36,7 @@
 		"url": "https://RPL0930@dev.azure.com/RPL0930/CakePHP%20Bake/_git/CakePHP%20Bake"
 	},
 	"activationEvents": [
-		"onCommand:cakephp-bake.bakeController",
-		"onCommand:cakephp-bake.bakeModel",
-		"onCommand:cakephp-bake.bakeTemplate",
-		"onCommand:cakephp-bake.bakeMigration",
-		"onCommand:cakephp-bake.bakeCell",
-		"onCommand:cakephp-bake.bakeHelper",
-		"onCommand:cakephp-bake.bakePlugin",
-		"onCommand:cakephp-bake.bakeCommand",
-		"onCommand:cakephp-bake.bakeFixture",
-		"onCommand:cakephp-bake.bakeShell",
-		"onCommand:cakephp-bake.migrationsMigrate",
-		"onCommand:cakephp-bake.bakeComponent",
-		"onCommand:cakephp-bake.bakeTest",
-		"onCommand:cakephp-bake.bakeBehavior",
-		"onCommand:cakephp-bake.bakeMailer",
-		"onCommand:cakephp-bake.bakeTask",
-		"onCommand:cakephp-bake.bakeMiddleware"
+		"workspaceContains:**/bin/cake"
 	],
 	"main": "./out/extension.js",
 	"contributes": {

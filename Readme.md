@@ -17,4 +17,4 @@ Extension that allows to easily bake models, controllers, templates, shells, com
 |CakePHP Bake: Helper| Bake helper file |
 |CakePHP Bake: Plugin| Bake plugin file |
 |CakePHP Bake: Component| Bake Component file |
-|CakePHP Migrations: Migrate| Migrate migrations |
+|CakePHP Migrations: Migrate| Migrations migrate |

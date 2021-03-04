@@ -22,7 +22,7 @@
 		"shell",
 		"command"
 	],
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"engines": {
 		"vscode": "^1.53.0"
 	},
@@ -42,13 +42,34 @@
 		"onCommand:cakephp-bake.bakeHelper",
 		"onCommand:cakephp-bake.bakePlugin",
 		"onCommand:cakephp-bake.bakeCommand",
+		"onCommand:cakephp-bake.bakeFixture",
 		"onCommand:cakephp-bake.bakeShell",
 		"onCommand:cakephp-bake.MigrationsMigrate",
-		"onCommand:cakephp-bake.bakeComponent"
+		"onCommand:cakephp-bake.bakeComponent",
+		"onCommand:cakephp-bake.bakeBehavior",
+		"onCommand:cakephp-bake.bakeMailer",
+		"onCommand:cakephp-bake.bakeTask",
+		"onCommand:cakephp-bake.bakeMiddleware"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
+			{
+				"command": "cakephp-bake.bakeBehavior",
+				"title": "CakePHP Bake: Behavior"
+			},
+			{
+				"command": "cakephp-bake.bakeFixture",
+				"title": "CakePHP Bake: Fixture"
+			},
+			{
+				"command": "cakephp-bake.bakeMailer",
+				"title": "CakePHP Bake: Mailer"
+			},
+			{
+				"command": "cakephp-bake.bakeMiddleware",
+				"title": "CakePHP Bake: Middleware"
+			},
 			{
 				"command": "cakephp-bake.bakeController",
 				"title": "CakePHP Bake: Controller"
@@ -90,6 +111,10 @@
 				"title": "CakePHP Bake: Plugin"
 			},
 			{
+				"command": "cakephp-bake.bakeTask",
+				"title": "CakePHP Bake: Task"
+			},
+			{
 				"command": "cakephp-bake.bakeComponent",
 				"title": "CakePHP Bake: Component"
 			}
@@ -115,5 +140,8 @@
 		"mocha": "^8.2.1",
 		"typescript": "^4.1.3",
 		"vscode-test": "^1.5.0"
+	},
+	"dependencies": {
+		"strip-ansi": "^6.0.0"
 	}
 }

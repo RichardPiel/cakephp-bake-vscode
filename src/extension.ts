@@ -4,9 +4,9 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { window, commands, ExtensionContext, workspace, Uri } from "vscode";
-import { bakeCommandsList } from "./commands";
+import { commandsList } from "./commands";
 import { classTypes } from "./classTypes";
-import { extractFilenameFromStdout, } from "./tools";
+import { extractFilenameFromStdout, asyncForEach } from "./tools";
 
 const cp = require("child_process");
 const stripAnsi = require("strip-ansi");
@@ -18,96 +18,85 @@ const workspacePath = workspace.asRelativePath(
 
 export function activate(context: ExtensionContext) {
 
-	bakeCommandsList.forEach(
+	commandsList.forEach(
 
 		function (cmdToExec: {
 			cmdName: string;
-			humanName: string;
 			cmd: string;
+			successMessage: string;
+			arguments: any;
 			options: {
-				prefix: boolean;
-				plugin: boolean;
 				openFileCreated: boolean;
 				forceOverwrite: boolean;
-				selectClassType: boolean;
 			};
 		}) {
 
 			context.subscriptions.push(commands.registerCommand(`cakephp-bake.${cmdToExec.cmdName}`, async () => {
 
-					let cmd = `php ${workspacePath}/bin/cake.php bake ${cmdToExec.cmd}`;
+				let cmd = `php ${workspacePath}/bin/cake.php ${cmdToExec.cmd}`;
 
-					if (cmdToExec.options.selectClassType) {
-						const classType = await window.showQuickPick(classTypes, { placeHolder: 'Please select class type...' });
-						if (classType) {
-							cmd = `${cmd} ${classType.label}`;
-						}
+				await asyncForEach(cmdToExec.arguments, async (argument: any) => {
+
+					switch (argument.type) {
+						case 'input':
+							const input = await window.showInputBox({ placeHolder: argument.placeholder });
+							if (input) {
+								cmd = `${cmd} ${argument.call} ${input}`;
+							}
+							break;
+						case 'pick':
+
+							const picked = await window.showQuickPick(argument.values, { placeHolder: argument.placeholder });
+							if (picked) {
+								cmd = `${cmd} ${argument.call} ${picked.label}`;
+							}
+							break;
 					}
 
-					const model = await window.showInputBox({
-						placeHolder: `Please enter ${cmdToExec.humanName} name...`,
-					});
-					if (model) {
-						cmd = `${cmd} ${model}`;
-					}
+				})
 
-					if (cmdToExec.options.prefix) {
-						const prefix = await window.showInputBox({
-							placeHolder: "Please enter prefix name or leave empty...",
-						});
-
-						if (prefix) {
-							cmd = `${cmd} --prefix ${prefix}`;
-						}
-					}
-
-					if (cmdToExec.options.plugin) {
-						const plugin = await window.showInputBox({
-							placeHolder: "Please enter plugin name or leave empty...",
-						});
-						if (plugin) {
-							cmd = `${cmd} --plugin ${plugin}`;
-						}
-					}
-
-					if (cmdToExec.options.forceOverwrite) {
-						const overwrite = await window.showInputBox({
-							placeHolder: "Overwrite? (y/N)",
-							value: "n",
-						});
-
-						if (overwrite === "y" || overwrite === "Y") {
+				if (cmdToExec.options.forceOverwrite) {
+					const overwrite = await window.showQuickPick([{ label: 'No', picked: true }, { label: 'Yes' }], { placeHolder: 'Overwrite? (y/N)' });
+					if (overwrite) {
+						if (overwrite.label === "Yes") {
 							cmd = `${cmd} --force`;
 						}
 					}
+				}
 
-					cp.exec(
-						cmd,
-						{ timeout: timeout },
-						(err: string, stdout: string, stderr: string) => {
-							if (stderr) {
-								window.showErrorMessage(stripAnsi(stderr));
-							} else {
+				// Remove multiple spaces
+				cmd = cmd.replace(/\s{2,}/g, ' ');
 
-								window.showInformationMessage(
-									`${cmdToExec.humanName} file successfully created!`
-								);
+				cp.exec(
+					cmd,
+					{ timeout: timeout },
+					(err: string, stdout: string, stderr: string) => {
+						console.log('stdout : ', stdout)
+						console.log('stdout : ', err)
+						console.log('stderr : ', stderr)
+						if (stderr) {
+							window.showErrorMessage(stripAnsi(stderr));
+						} else {
 
-								// Automatic file opener
-								if (cmdToExec.options.openFileCreated) {
-									const found = extractFilenameFromStdout(stdout);
+							window.showInformationMessage(cmdToExec.successMessage);
 
-									if (found !== null) {
-										var openPath = Uri.parse("file:///" + found);
-										workspace.openTextDocument(openPath).then((doc) => {
-											window.showTextDocument(doc);
-										});
-									}
+							// Automatic file opener
+							if (cmdToExec.options.openFileCreated) {
+								const found = extractFilenameFromStdout(stdout);
+
+								if (found !== null) {
+									var openPath = Uri.parse("file:///" + found);
+									workspace.openTextDocument(openPath).then((doc) => {
+										window.showTextDocument(doc);
+									});
 								}
 							}
 						}
-					);
-				})
+					}
+				);
+
+
+			})
 			);
 		}
 	);

@@ -333,6 +333,7 @@ export const commandsList = [
         cmdName: "bakeComponent",
         humanName: "Component",
         cmd: "bake component",
+        successMessage: "Component successfully created!",
         arguments: [
             {
                 name: 'Component name',
@@ -442,7 +443,6 @@ export const commandsList = [
         cmdName: "migrationsMigrate",
         cmd: "migrations migrate",
         successMessage: "Migration(s) successfully migrated!",
-        arguments: [],
         options: {
             openFileCreated: false,
             forceOverwrite: false,
@@ -470,7 +470,6 @@ export const commandsList = [
         cmdName: "cacheClearAll",
         cmd: "cache clear_all",
         successMessage: "Caches successfully cleared!",
-        arguments: [],
         options: {
             openFileCreated: false,
             forceOverwrite: false,

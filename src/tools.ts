@@ -10,7 +10,7 @@ export function extractFilenameFromStdout(text: String): typeof text | null
     return found !== null ? found.groups!.file : null;
 }
 
-export async function asyncForEach(array: [], callback: any) {
+export async function asyncForEach(array: any, callback: any) {
     for (let index = 0; index < array.length; index++) {
       await callback(array[index], index, array);
     }

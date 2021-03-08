@@ -5,8 +5,8 @@
 
 import { window, commands, ExtensionContext, workspace, Uri } from "vscode";
 import { commandsList } from "./commands";
-import { classTypes } from "./classTypes";
 import { extractFilenameFromStdout, asyncForEach } from "./tools";
+import { isObject } from "util";
 
 const cp = require("child_process");
 const stripAnsi = require("strip-ansi");
@@ -24,7 +24,12 @@ export function activate(context: ExtensionContext) {
 			cmdName: string;
 			cmd: string;
 			successMessage: string;
-			arguments: any;
+			arguments?: Array<{
+				call: string
+				placeholder: string,
+				type: string,
+				values?: Array<{ label: string }>,
+			}>;
 			options: {
 				openFileCreated: boolean;
 				forceOverwrite: boolean;
@@ -35,29 +40,41 @@ export function activate(context: ExtensionContext) {
 
 				let cmd = `php ${workspacePath}/bin/cake.php ${cmdToExec.cmd}`;
 
-				await asyncForEach(cmdToExec.arguments, async (argument: any) => {
+				if (cmdToExec.arguments) {
 
-					switch (argument.type) {
-						case 'input':
-							const input = await window.showInputBox({ placeHolder: argument.placeholder });
-							if (input) {
-								cmd = `${cmd} ${argument.call} ${input}`;
-							}
-							break;
-						case 'pick':
+					await asyncForEach(cmdToExec.arguments, async (argument: {
+						call: string
+						placeholder: string,
+						type: string,
+						values: Array<{ label: string }>,
+					}) => {
 
-							const picked = await window.showQuickPick(argument.values, { placeHolder: argument.placeholder });
-							if (picked) {
-								cmd = `${cmd} ${argument.call} ${picked.label}`;
-							}
-							break;
-					}
+						switch (argument.type) {
+							case 'input':
+								const input = await window.showInputBox({ placeHolder: argument.placeholder });
+								if (input) {
+									cmd = `${cmd} ${argument.call} ${input}`;
+								}
+								break;
+							case 'pick':
+								if (argument.values) {
+									const picked = await window.showQuickPick(argument.values, { placeHolder: argument.placeholder });
+									if (picked) {
+										cmd = `${cmd} ${argument.call} ${picked.label}`;
+									}
+								}
+								break;
+						}
 
-				})
+					})
+				}
 
 				if (cmdToExec.options.forceOverwrite) {
+
 					const overwrite = await window.showQuickPick([{ label: 'No', picked: true }, { label: 'Yes' }], { placeHolder: 'Overwrite? (y/N)' });
 					if (overwrite) {
+
+
 						if (overwrite.label === "Yes") {
 							cmd = `${cmd} --force`;
 						}

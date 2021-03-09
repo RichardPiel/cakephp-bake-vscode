@@ -24,7 +24,7 @@
 		"shell",
 		"command"
 	],
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"engines": {
 		"vscode": "^1.53.0"
 	},
@@ -43,7 +43,7 @@
 		"configuration": {
 			"title": "CakePHP Bake",
 			"properties": {
-				"cakephp-bake.php.location": {
+				"cakephp.bake.php.location": {
 					"type": "string",
 					"default": "php",
 					"description": "Sets a custom location to the php executable"
@@ -52,96 +52,102 @@
 		},
 		"commands": [
 			{
-				"command": "cakephp-bake.bakeBehavior",
-				"title": "CakePHP: Bake Behavior"
-			},
-			{
-				"command": "cakephp-bake.bakePolicy",
-				"title": "CakePHP: Bake Policy"
-			},
-			{
-				"command": "cakephp-bake.bakeFixture",
-				"title": "CakePHP: Bake Fixture"
-			},
-			{
-				"command": "cakephp-bake.bakeTest",
-				"title": "CakePHP: Bake Test"
-			},
-			{
-				"command": "cakephp-bake.bakeMailer",
-				"title": "CakePHP: Bake Mailer"
-			},
-			{
-				"command": "cakephp-bake.bakeMiddleware",
-				"title": "CakePHP: Bake Middleware"
-			},
-			{
-				"command": "cakephp-bake.bakeController",
+				"command": "cakephp.bake.controller",
 				"title": "CakePHP: Bake Controller"
 			},
 			{
-				"command": "cakephp-bake.bakeModel",
+				"command": "cakephp.bake.model",
 				"title": "CakePHP: Bake Model"
 			},
 			{
-				"command": "cakephp-bake.bakeTemplate",
+				"command": "cakephp.bake.template",
 				"title": "CakePHP: Bake Template"
 			},
 			{
-				"command": "cakephp-bake.bakeMigration",
-				"title": "CakePHP: Bake Migration"
+				"command": "cakephp.bake.component",
+				"title": "CakePHP: Bake Component"
+			},
+			
+			{
+				"command": "cakephp.bake.behavior",
+				"title": "CakePHP: Bake Behavior"
 			},
 			{
-				"command": "cakephp-bake.bakeMigrationDiff",
-				"title": "CakePHP: Bake Migration Diff"
+				"command": "cakephp.bake.policy",
+				"title": "CakePHP: Bake Policy"
 			},
 			{
-				"command": "cakephp-bake.migrationsMigrate",
-				"title": "CakePHP Migrations: Migrate"
+				"command": "cakephp.bake.fixture",
+				"title": "CakePHP: Bake Fixture"
 			},
 			{
-				"command": "cakephp-bake.bakeCommand",
+				"command": "cakephp.bake.test",
+				"title": "CakePHP: Bake Test"
+			},
+			{
+				"command": "cakephp.bake.mailer",
+				"title": "CakePHP: Bake Mailer"
+			},
+			{
+				"command": "cakephp.bake.middleware",
+				"title": "CakePHP: Bake Middleware"
+			},
+			{
+				"command": "cakephp.bake.command",
 				"title": "CakePHP: Bake Command"
 			},
 			{
-				"command": "cakephp-bake.bakeHelper",
+				"command": "cakephp.bake.helper",
 				"title": "CakePHP: Bake Helper"
 			},
 			{
-				"command": "cakephp-bake.bakeCell",
+				"command": "cakephp.bake.cell",
 				"title": "CakePHP: Bake Cell"
 			},
 			{
-				"command": "cakephp-bake.bakeShell",
+				"command": "cakephp.bake.shell",
 				"title": "CakePHP: Bake Shell"
 			},
 			{
-				"command": "cakephp-bake.bakePlugin",
+				"command": "cakephp.bake.plugin",
 				"title": "CakePHP: Bake Plugin"
 			},
 			{
-				"command": "cakephp-bake.bakeTask",
+				"command": "cakephp.bake.task",
 				"title": "CakePHP: Bake Task"
 			},
+
 			{
-				"command": "cakephp-bake.bakeComponent",
-				"title": "CakePHP: Bake Component"
-			},
-			{
-				"command": "cakephp-bake.cacheClear",
-				"title": "CakePHP: Clear cache"
-			},
-			{
-				"command": "cakephp-bake.cacheClearAll",
-				"title": "CakePHP: Clear all caches"
-			},
-			{
-				"command": "cakephp-bake.bakeForm",
+				"command": "cakephp.bake.form",
 				"title": "CakePHP: Bake form"
 			},
 			{
-				"command": "cakephp-bake.migrationsSnapshot",
+				"command": "cakephp.cache.clear",
+				"title": "CakePHP: Clear cache"
+			},
+			{
+				"command": "cakephp.cache.clear_all",
+				"title": "CakePHP: Clear all caches"
+			},
+			{
+				"command": "cakephp.migrations.snapshot",
 				"title": "CakePHP: Migrations Snapshot"
+			},
+			{
+				"command": "cakephp.bake.migration_diff",
+				"title": "CakePHP: Bake Migration Diff"
+			},
+			{
+				"command": "cakephp.migrations.migrate",
+				"title": "CakePHP Migrations: Migrate"
+			},
+			{
+				"command": "cakephp.bake.migration",
+				"title": "CakePHP: Bake Migration"
+			},
+			{
+				"command": "cakephp.commands",
+				"title": "CakePHP: List all commands"
 			}
 		]
 	},

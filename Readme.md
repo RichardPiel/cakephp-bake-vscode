@@ -1,6 +1,10 @@
 # CakePHP Bake
 Extension that allows to easily bake models, controllers, templates, shells, commands, helpers, cells, plugins, components and many mores in CakePHP 3/4.
 
+## Requirements
+
+Specify the path of your PHP executable or leave the default value: `php`
+
 ## Extension Commands
 
 > Press `⇧⌘P (Shift + Command + P)` for macOS, `Ctrl+Shift+P` for Windows and Linux distributions to show command palette. Type the following command names.
@@ -48,3 +52,6 @@ Extension that allows to easily bake models, controllers, templates, shells, com
 | Commands |      Description       |
 |----------|---------------|
 |CakePHP: Bake policy | Bake policy class file |
+
+
+

@@ -2,7 +2,7 @@
 export const commandsList = [
     // Bake commands
     {
-        cmdName: "bakeModel",
+        cmdName: "bake.model",
         cmd: "bake model",
         successMessage: "Model successfully created!",
         arguments: [
@@ -23,7 +23,7 @@ export const commandsList = [
         }
     },
     {
-        cmdName: "bakeController",
+        cmdName: "bake.controller",
         cmd: "bake controller",
         successMessage: "Controller successfully created!",
         arguments: [
@@ -49,7 +49,7 @@ export const commandsList = [
         }
     },
     {
-        cmdName: "bakeCell",
+        cmdName: "bake.cell",
         cmd: "bake cell",
         successMessage: "Cell successfully created!",
         arguments: [
@@ -78,7 +78,7 @@ export const commandsList = [
         }
     },
     {
-        cmdName: "bakeCommand",
+        cmdName: "bake.command",
         cmd: "bake command",
         successMessage: "Command successfully created!",
         arguments: [
@@ -101,7 +101,7 @@ export const commandsList = [
         }
     },
     { 
-        cmdName: "bakeShell",
+        cmdName: "bake.shell",
         cmd: "bake shell",
         successMessage: "Shell successfully created!",
         arguments: [
@@ -124,7 +124,7 @@ export const commandsList = [
         }
     },
     { 
-        cmdName: "bakeForm",
+        cmdName: "bake.form",
         cmd: "bake form",
         successMessage: "Form successfully created!",
         arguments: [
@@ -141,7 +141,7 @@ export const commandsList = [
         }
     },
     { 
-        cmdName: "bakeHelper",
+        cmdName: "bake.helper",
         cmd: "bake helper",
         successMessage: "Helper successfully created!",
         arguments: [
@@ -167,7 +167,7 @@ export const commandsList = [
         }
     },
     { 
-        cmdName: "bakePlugin",
+        cmdName: "bake.plugin",
         cmd: "bake plugin",
         successMessage: "Plugin successfully created!",
         arguments: [
@@ -183,7 +183,7 @@ export const commandsList = [
         }
     },
     { 
-        cmdName: "bakeMigration",
+        cmdName: "bake.migration",
         cmd: "bake migration",
         successMessage: "Migration successfully created!",
         arguments: [
@@ -204,7 +204,7 @@ export const commandsList = [
         }
     },
     { 
-        cmdName: "migrationsSnapshot",
+        cmdName: "migrations.snapshot",
         cmd: "bake migration_snapshot",
         successMessage: "Migration snapshot successfully created!",
         arguments: [
@@ -225,7 +225,7 @@ export const commandsList = [
         }
     },
     { 
-        cmdName: "bakeBehavior",
+        cmdName: "bake.behavior",
         cmd: "bake behavior",
         successMessage: "Behavior successfully created!",
         arguments: [
@@ -246,7 +246,7 @@ export const commandsList = [
         }
     },
     { 
-        cmdName: "bakeTask",
+        cmdName: "bake.task",
         cmd: "bake task",
         successMessage: "Task successfully created!",
         arguments: [
@@ -267,7 +267,7 @@ export const commandsList = [
         }
     },
     { 
-        cmdName: "bakeMailer",
+        cmdName: "bake.mailer",
         cmd: "bake mailer",
         successMessage: "Mailer successfully created!",
         arguments: [
@@ -288,7 +288,7 @@ export const commandsList = [
         }
     },
     { 
-        cmdName: "bakeFixture",
+        cmdName: "bake.fixture",
         cmd: "bake fixture",
         successMessage: "Fixture successfully created!",
         arguments: [
@@ -309,7 +309,7 @@ export const commandsList = [
         }
     },
     { 
-        cmdName: "bakePolicy",
+        cmdName: "bake.policy",
         cmd: "bake policy",
         successMessage: "Policy successfully created!",
         arguments: [
@@ -330,7 +330,7 @@ export const commandsList = [
         }
     },
     { 
-        cmdName: "bakeMiddleware",
+        cmdName: "bake.middleware",
         cmd: "bake middleware",
         successMessage: "Middleware successfully created!",
         arguments: [
@@ -351,7 +351,7 @@ export const commandsList = [
         }
     },
     {
-        cmdName: "bakeComponent",
+        cmdName: "bake.component",
         humanName: "Component",
         cmd: "bake component",
         successMessage: "Component successfully created!",
@@ -381,7 +381,7 @@ export const commandsList = [
         }
     },
     {
-        cmdName: "bakeTemplate",
+        cmdName: "bake.template",
         cmd: "bake template",
         successMessage: "Template successfully created!",
         arguments: [
@@ -410,7 +410,7 @@ export const commandsList = [
         }
     },
     {
-        cmdName: "bakeTest",
+        cmdName: "bake.test",
         cmd: "bake test",
         successMessage: "Test successfully created!",
         arguments: [
@@ -461,7 +461,7 @@ export const commandsList = [
     },
     // Migrations commands
     { 
-        cmdName: "migrationsMigrate",
+        cmdName: "migrations.migrate",
         cmd: "migrations migrate",
         successMessage: "Migration(s) successfully migrated!",
         options: {
@@ -471,7 +471,7 @@ export const commandsList = [
     },
     // Cache commands
     { 
-        cmdName: "cacheClear",
+        cmdName: "cache.clear",
         cmd: "cache clear",
         successMessage: "Cache successfully cleared!",
         arguments: [
@@ -488,7 +488,7 @@ export const commandsList = [
         }
     },
     { 
-        cmdName: "cacheClearAll",
+        cmdName: "cache.clear_all",
         cmd: "cache clear_all",
         successMessage: "Caches successfully cleared!",
         options: {

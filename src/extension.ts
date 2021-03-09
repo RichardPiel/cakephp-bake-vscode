@@ -3,10 +3,10 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
+import { stringify } from "node:querystring";
 import { window, commands, ExtensionContext, workspace, Uri } from "vscode";
 import { commandsList } from "./commands";
-import { extractFilenameFromStdout, asyncForEach } from "./tools";
-import { isObject } from "util";
+import { extractFilenameFromStdout, asyncForEach, getListCommands } from "./tools";
 
 const cp = require("child_process");
 const stripAnsi = require("strip-ansi");
@@ -21,7 +21,12 @@ const workspacePath = workspace.asRelativePath(
 );
 
 export function activate(context: ExtensionContext) {
-
+	context.subscriptions.push(commands.registerCommand(`cakephp.commands`, async () => {
+		const picked = await window.showQuickPick(getListCommands(), { placeHolder: 'Please select command to execute...' });
+		if (picked) {
+			commands.executeCommand(picked.label);
+		}
+	}));
 	commandsList.forEach(
 
 		function (cmdToExec: {
@@ -39,8 +44,8 @@ export function activate(context: ExtensionContext) {
 				forceOverwrite: boolean;
 			};
 		}) {
-
-			context.subscriptions.push(commands.registerCommand(`cakephp-bake.${cmdToExec.cmdName}`, async () => {
+			
+			context.subscriptions.push(commands.registerCommand(`cakephp.${cmdToExec.cmdName}`, async () => {
 
 				let cmd = `${phpLocation} ${workspacePath}/bin/cake.php ${cmdToExec.cmd}`;
 

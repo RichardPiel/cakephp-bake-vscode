@@ -56,6 +56,10 @@
 				"title": "CakePHP: Bake Behavior"
 			},
 			{
+				"command": "cakephp-bake.bakePolicy",
+				"title": "CakePHP: Bake Policy"
+			},
+			{
 				"command": "cakephp-bake.bakeFixture",
 				"title": "CakePHP: Bake Fixture"
 			},

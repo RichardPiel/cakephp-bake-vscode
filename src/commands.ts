@@ -309,6 +309,27 @@ export const commandsList = [
         }
     },
     { 
+        cmdName: "bakePolicy",
+        cmd: "bake policy",
+        successMessage: "Policy successfully created!",
+        arguments: [
+            {
+                call: '',
+                placeholder: 'Please enter policy name...',
+                type: 'input'
+            },
+            {
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            }
+        ],
+        options: {
+            openFileCreated: true,
+            forceOverwrite: true,
+        }
+    },
+    { 
         cmdName: "bakeMiddleware",
         cmd: "bake middleware",
         successMessage: "Middleware successfully created!",

@@ -42,3 +42,9 @@ Extension that allows to easily bake models, controllers, templates, shells, com
 |----------|---------------|
 |CakePHP: Cache clear| Clear specific cache |
 |CakePHP: Cache clear all| Clear all caches |
+
+### Authorization Commands
+
+| Commands |      Description       |
+|----------|---------------|
+|CakePHP: Bake policy | Bake policy class file |

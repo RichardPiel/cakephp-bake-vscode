@@ -11,6 +11,10 @@ import { isObject } from "util";
 const cp = require("child_process");
 const stripAnsi = require("strip-ansi");
 const timeout = 2000;
+const fs = require('fs')
+
+let config = workspace.getConfiguration('cakephp-bake')
+let phpLocation = config.get<string | null>('php.location', 'php')
 
 const workspacePath = workspace.asRelativePath(
 	workspace.workspaceFolders![0].uri
@@ -38,7 +42,7 @@ export function activate(context: ExtensionContext) {
 
 			context.subscriptions.push(commands.registerCommand(`cakephp-bake.${cmdToExec.cmdName}`, async () => {
 
-				let cmd = `php ${workspacePath}/bin/cake.php ${cmdToExec.cmd}`;
+				let cmd = `${phpLocation} ${workspacePath}/bin/cake.php ${cmdToExec.cmd}`;
 
 				if (cmdToExec.arguments) {
 
@@ -57,11 +61,9 @@ export function activate(context: ExtensionContext) {
 								}
 								break;
 							case 'pick':
-								if (argument.values) {
-									const picked = await window.showQuickPick(argument.values, { placeHolder: argument.placeholder });
-									if (picked) {
-										cmd = `${cmd} ${argument.call} ${picked.label}`;
-									}
+								const picked = await window.showQuickPick(argument.values, { placeHolder: argument.placeholder });
+								if (picked) {
+									cmd = `${cmd} ${argument.call} ${picked.label}`;
 								}
 								break;
 						}
@@ -73,45 +75,39 @@ export function activate(context: ExtensionContext) {
 
 					const overwrite = await window.showQuickPick([{ label: 'No', picked: true }, { label: 'Yes' }], { placeHolder: 'Overwrite? (y/N)' });
 					if (overwrite) {
-
-
 						if (overwrite.label === "Yes") {
 							cmd = `${cmd} --force`;
 						}
 					}
 				}
 
-				// Remove multiple spaces
-				cmd = cmd.replace(/\s{2,}/g, ' ');
-
 				cp.exec(
-					cmd,
-					{ timeout: timeout },
-					(err: string, stdout: string, stderr: string) => {
-						console.log('stdout : ', stdout)
-						console.log('stdout : ', err)
-						console.log('stderr : ', stderr)
-						if (stderr) {
+					cmd.replace(/\s{2,}/g, ' '),
+					{ },
+					(err: Error | undefined, stdout: string, stderr: string) => {
+
+						if (err) {
+							window.showErrorMessage(stripAnsi(err.message));
+						} else if (stderr) {
 							window.showErrorMessage(stripAnsi(stderr));
 						} else {
-
 							window.showInformationMessage(cmdToExec.successMessage);
-
-							// Automatic file opener
 							if (cmdToExec.options.openFileCreated) {
 								const found = extractFilenameFromStdout(stdout);
-
 								if (found !== null) {
-									var openPath = Uri.parse("file:///" + found);
-									workspace.openTextDocument(openPath).then((doc) => {
-										window.showTextDocument(doc);
-									});
+									var path = Uri.parse("file:///" + found);
+									if (fs.existsSync(path.fsPath)) {
+										workspace.openTextDocument(path).then((doc) => {
+											window.showTextDocument(doc);
+										});
+									} else {
+										window.showInformationMessage(`${path} not found!`);
+									}
 								}
 							}
 						}
 					}
 				);
-
 
 			})
 			);

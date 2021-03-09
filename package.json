@@ -24,7 +24,7 @@
 		"shell",
 		"command"
 	],
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"engines": {
 		"vscode": "^1.53.0"
 	},
@@ -40,6 +40,16 @@
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"configuration": {
+			"title": "CakePHP Bake",
+			"properties": {
+				"cakephp-bake.php.location": {
+					"type": "string",
+					"default": "php",
+					"description": "Sets a custom location to the php executable"
+				}
+			}
+		},
 		"commands": [
 			{
 				"command": "cakephp-bake.bakeBehavior",

@@ -55,3 +55,8 @@ Specify the path of your PHP executable or leave the default value: `php`
 
 
 
+
+---
+
+#### Made with ❤️ by [WebAndCow](https://www.webandcow.com)
+

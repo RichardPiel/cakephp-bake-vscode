@@ -3,105 +3,111 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
+import { stringify } from "node:querystring";
 import { window, commands, ExtensionContext, workspace, Uri } from "vscode";
-import { bakeCommandsList } from "./commands";
-import { classTypes } from "./classTypes";
-import { extractFilenameFromStdout, } from "./tools";
+import { commandsList } from "./commands";
+import { extractFilenameFromStdout, asyncForEach, getListCommands } from "./tools";
 
 const cp = require("child_process");
 const stripAnsi = require("strip-ansi");
 const timeout = 2000;
+const fs = require('fs')
+
+let config = workspace.getConfiguration('cakephp-bake')
+let phpLocation = config.get<string | null>('php.location', 'php')
 
 const workspacePath = workspace.asRelativePath(
 	workspace.workspaceFolders![0].uri
 );
 
 export function activate(context: ExtensionContext) {
-
-	bakeCommandsList.forEach(
+	context.subscriptions.push(commands.registerCommand(`cakephp.commands`, async () => {
+		const picked = await window.showQuickPick(getListCommands(), { placeHolder: 'Please select command to execute...' });
+		if (picked) {
+			commands.executeCommand(picked.label);
+		}
+	}));
+	commandsList.forEach(
 
 		function (cmdToExec: {
 			cmdName: string;
-			humanName: string;
 			cmd: string;
+			successMessage: string;
+			arguments?: Array<{
+				call: string
+				placeholder: string,
+				type: string,
+				values?: Array<{ label: string }>,
+			}>;
 			options: {
-				prefix: boolean;
-				plugin: boolean;
 				openFileCreated: boolean;
 				forceOverwrite: boolean;
-				selectClassType: boolean;
 			};
 		}) {
+			
+			context.subscriptions.push(commands.registerCommand(`cakephp.${cmdToExec.cmdName}`, async () => {
 
-			context.subscriptions.push(commands.registerCommand(`cakephp-bake.${cmdToExec.cmdName}`, async () => {
+				let cmd = `${phpLocation} ${workspacePath}/bin/cake.php ${cmdToExec.cmd}`;
 
-				let cmd = `php ${workspacePath}/bin/cake.php bake ${cmdToExec.cmd}`;
+				if (cmdToExec.arguments) {
 
-				if (cmdToExec.options.selectClassType) {
-					const classType = await window.showQuickPick(classTypes, { placeHolder: 'Please select class type...' });
-					if (classType) {
-						cmd = `${cmd} ${classType.label}`;
-					}
-				}
+					await asyncForEach(cmdToExec.arguments, async (argument: {
+						call: string
+						placeholder: string,
+						type: string,
+						values: Array<{ label: string }>,
+					}) => {
 
-				const model = await window.showInputBox({
-					placeHolder: `Please enter ${cmdToExec.humanName} name...`,
-				});
-				if (model) {
-					cmd = `${cmd} ${model}`;
-				}
+						switch (argument.type) {
+							case 'input':
+								const input = await window.showInputBox({ placeHolder: argument.placeholder });
+								if (input) {
+									cmd = `${cmd} ${argument.call} ${input}`;
+								}
+								break;
+							case 'pick':
+								const picked = await window.showQuickPick(argument.values, { placeHolder: argument.placeholder });
+								if (picked) {
+									cmd = `${cmd} ${argument.call} ${picked.label}`;
+								}
+								break;
+						}
 
-				if (cmdToExec.options.prefix) {
-					const prefix = await window.showInputBox({
-						placeHolder: "Please enter prefix name or leave empty...",
-					});
-
-					if (prefix) {
-						cmd = `${cmd} --prefix ${prefix}`;
-					}
-				}
-
-				if (cmdToExec.options.plugin) {
-					const plugin = await window.showInputBox({
-						placeHolder: "Please enter plugin name or leave empty...",
-					});
-					if (plugin) {
-						cmd = `${cmd} --plugin ${plugin}`;
-					}
+					})
 				}
 
 				if (cmdToExec.options.forceOverwrite) {
-					const overwrite = await window.showInputBox({
-						placeHolder: "Overwrite? (y/N)",
-						value: "n",
-					});
 
-					if (overwrite === "y" || overwrite === "Y") {
-						cmd = `${cmd} --force`;
+					const overwrite = await window.showQuickPick([{ label: 'No', picked: true }, { label: 'Yes' }], { placeHolder: 'Overwrite? (y/N)' });
+					if (overwrite) {
+						if (overwrite.label === "Yes") {
+							cmd = `${cmd} --force`;
+						}
 					}
 				}
 
 				cp.exec(
-					cmd,
-					{ timeout: timeout },
-					(err: string, stdout: string, stderr: string) => {
-						if (stderr) {
+					cmd.replace(/\s{2,}/g, ' '),
+					{ },
+					(err: Error | undefined, stdout: string, stderr: string) => {
+
+						if (err) {
+							window.showErrorMessage(stripAnsi(err.message));
+						} else if (stderr) {
 							window.showErrorMessage(stripAnsi(stderr));
 						} else {
-
-							window.showInformationMessage(
-								`${cmdToExec.humanName} file successfully created!`
-							);
-
-							// Automatic file opener
+							window.showInformationMessage(cmdToExec.successMessage);
 							if (cmdToExec.options.openFileCreated) {
 								const found = extractFilenameFromStdout(stdout);
-
 								if (found !== null) {
-									var openPath = Uri.parse("file:///" + found);
-									workspace.openTextDocument(openPath).then((doc) => {
-										window.showTextDocument(doc);
-									});
+									var path = Uri.parse("file:///" + found);
+									if (fs.existsSync(path.fsPath)) {
+										workspace.openTextDocument(path).then((doc) => {
+											window.showTextDocument(doc);
+										});
+									} else {
+										window.showInformationMessage(`${path} not found!`);
+									}
 								}
 							}
 						}

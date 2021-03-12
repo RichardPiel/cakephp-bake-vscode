@@ -1,195 +1,500 @@
-export const bakeCommandsList = [
 
+export const commandsList = [
+    // Bake commands
     {
-        cmdName: "bakeModel",
-        humanName: "Model",
-        cmd: "model",
+        cmdName: "bake.model",
+        cmd: "bake model",
+        successMessage: "Model successfully created!",
+        arguments: [
+            {
+                call: '',
+                placeholder: 'Please enter model name...',
+                type: 'input'
+            },
+            {
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            }
+        ],
         options: {
-            prefix: false,
-            plugin: true,
             openFileCreated: true,
             forceOverwrite: true,
-            selectClassType: false,
         }
     },
     {
-        cmdName: "bakeCell",
-        humanName: "Cell",
-        cmd: "cell",
+        cmdName: "bake.controller",
+        cmd: "bake controller",
+        successMessage: "Controller successfully created!",
+        arguments: [
+            {
+                call: '',
+                placeholder: 'Please enter controller name...',
+                type: 'input'
+            },
+            {
+                call: '--prefix',
+                placeholder: 'Please enter prefix name or leave empty',
+                type: 'input'
+            },
+            {
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            }
+        ],
         options: {
-            prefix: true,
-            plugin: true,
             openFileCreated: true,
             forceOverwrite: true,
-            selectClassType: false,
         }
     },
     {
-        cmdName: "bakeTemplate",
-        humanName: "Template",
-        cmd: "template",
+        cmdName: "bake.cell",
+        cmd: "bake cell",
+        successMessage: "Cell successfully created!",
+        arguments: [
+            {
+                name: 'Cell name',
+                call: '',
+                placeholder: 'Please enter cell name...',
+                type: 'input'
+            },
+            {
+                name: 'Prefix',
+                call: '--prefix',
+                placeholder: 'Please enter prefix name or leave empty',
+                type: 'input'
+            },
+            {
+                name: 'Plugin',
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            }
+        ],
         options: {
-            prefix: true,
-            plugin: true,
             openFileCreated: true,
             forceOverwrite: true,
-            selectClassType: false,
         }
     },
     {
-        cmdName: "bakeComponent",
+        cmdName: "bake.command",
+        cmd: "bake command",
+        successMessage: "Command successfully created!",
+        arguments: [
+            {
+                name: 'Command name',
+                call: '',
+                placeholder: 'Please enter command name...',
+                type: 'input'
+            },
+            {
+                name: 'Plugin',
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            }
+        ],
+        options: {
+            openFileCreated: true,
+            forceOverwrite: true,
+        }
+    },
+    { 
+        cmdName: "bake.shell",
+        cmd: "bake shell",
+        successMessage: "Shell successfully created!",
+        arguments: [
+            {
+                name: 'Shell name',
+                call: '',
+                placeholder: 'Please enter shell name...',
+                type: 'input'
+            },
+            {
+                name: 'Plugin',
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            }
+        ],
+        options: {
+            openFileCreated: true,
+            forceOverwrite: true,
+        }
+    },
+    { 
+        cmdName: "bake.form",
+        cmd: "bake form",
+        successMessage: "Form successfully created!",
+        arguments: [
+            {
+                name: 'Form name',
+                call: '',
+                placeholder: 'Please enter form name...',
+                type: 'input'
+            }
+        ],
+        options: {
+            openFileCreated: true,
+            forceOverwrite: true,
+        }
+    },
+    { 
+        cmdName: "bake.helper",
+        cmd: "bake helper",
+        successMessage: "Helper successfully created!",
+        arguments: [
+            {
+                call: '',
+                placeholder: 'Please enter helper name...',
+                type: 'input'
+            },
+            {
+                call: '--prefix',
+                placeholder: 'Please enter prefix name or leave empty',
+                type: 'input'
+            },
+            {
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            }
+        ],
+        options: {
+            openFileCreated: true,
+            forceOverwrite: true,
+        }
+    },
+    { 
+        cmdName: "bake.plugin",
+        cmd: "bake plugin",
+        successMessage: "Plugin successfully created!",
+        arguments: [
+            {
+                call: '',
+                placeholder: 'Please enter plugin name...',
+                type: 'input'
+            },
+        ],
+        options: {
+            openFileCreated: true,
+            forceOverwrite: true,
+        }
+    },
+    { 
+        cmdName: "bake.migration",
+        cmd: "bake migration",
+        successMessage: "Migration successfully created!",
+        arguments: [
+            {
+                call: '',
+                placeholder: 'Please enter migration name...',
+                type: 'input'
+            },
+            {
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            }
+        ],
+        options: {
+            openFileCreated: true,
+            forceOverwrite: true,
+        }
+    },
+    { 
+        cmdName: "migrations.snapshot",
+        cmd: "bake migration_snapshot",
+        successMessage: "Migration snapshot successfully created!",
+        arguments: [
+            {
+                call: '',
+                placeholder: 'Please enter migration name...',
+                type: 'input'
+            },
+            {
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            }
+        ],
+        options: {
+            openFileCreated: true,
+            forceOverwrite: true,
+        }
+    },
+    { 
+        cmdName: "bake.behavior",
+        cmd: "bake behavior",
+        successMessage: "Behavior successfully created!",
+        arguments: [
+            {
+                call: '',
+                placeholder: 'Please enter behavior name...',
+                type: 'input'
+            },
+            {
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            }
+        ],
+        options: {
+            openFileCreated: true,
+            forceOverwrite: true,
+        }
+    },
+    { 
+        cmdName: "bake.task",
+        cmd: "bake task",
+        successMessage: "Task successfully created!",
+        arguments: [
+            {
+                call: '',
+                placeholder: 'Please enter task name...',
+                type: 'input'
+            },
+            {
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            }
+        ],
+        options: {
+            openFileCreated: true,
+            forceOverwrite: true,
+        }
+    },
+    { 
+        cmdName: "bake.mailer",
+        cmd: "bake mailer",
+        successMessage: "Mailer successfully created!",
+        arguments: [
+            {
+                call: '',
+                placeholder: 'Please enter mailer name...',
+                type: 'input'
+            },
+            {
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            }
+        ],
+        options: {
+            openFileCreated: true,
+            forceOverwrite: true,
+        }
+    },
+    { 
+        cmdName: "bake.fixture",
+        cmd: "bake fixture",
+        successMessage: "Fixture successfully created!",
+        arguments: [
+            {
+                call: '',
+                placeholder: 'Please enter fixture name...',
+                type: 'input'
+            },
+            {
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            }
+        ],
+        options: {
+            openFileCreated: true,
+            forceOverwrite: true,
+        }
+    },
+    { 
+        cmdName: "bake.policy",
+        cmd: "bake policy",
+        successMessage: "Policy successfully created!",
+        arguments: [
+            {
+                call: '',
+                placeholder: 'Please enter policy name...',
+                type: 'input'
+            },
+            {
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            }
+        ],
+        options: {
+            openFileCreated: true,
+            forceOverwrite: true,
+        }
+    },
+    { 
+        cmdName: "bake.middleware",
+        cmd: "bake middleware",
+        successMessage: "Middleware successfully created!",
+        arguments: [
+            {
+                call: '',
+                placeholder: 'Please enter middleware name...',
+                type: 'input'
+            },
+            {
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            }
+        ],
+        options: {
+            openFileCreated: true,
+            forceOverwrite: true,
+        }
+    },
+    {
+        cmdName: "bake.component",
         humanName: "Component",
-        cmd: "component",
+        cmd: "bake component",
+        successMessage: "Component successfully created!",
+        arguments: [
+            {
+                name: 'Component name',
+                call: '',
+                placeholder: 'Please enter component name...',
+                type: 'input'
+            },
+            {
+                name: 'Prefix',
+                call: '--prefix',
+                placeholder: 'Please enter prefix name or leave empty',
+                type: 'input'
+            },
+            {
+                name: 'Plugin',
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            }
+        ],
         options: {
-            prefix: true,
-            plugin: true,
             openFileCreated: true,
             forceOverwrite: true,
-            selectClassType: false,
         }
     },
     {
-        cmdName: "bakeCommand",
-        humanName: "Command",
-        cmd: "command",
+        cmdName: "bake.template",
+        cmd: "bake template",
+        successMessage: "Template successfully created!",
+        arguments: [
+            {
+                name: 'Model name',
+                call: '',
+                placeholder: 'Please enter model name...',
+                type: 'input'
+            },
+            {
+                name: 'Prefix',
+                call: '--prefix',
+                placeholder: 'Please enter prefix name or leave empty',
+                type: 'input'
+            },
+            {
+                name: 'Plugin',
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            }
+        ],
         options: {
-            prefix: false,
-            plugin: true,
             openFileCreated: true,
             forceOverwrite: true,
-            selectClassType: false,
         }
     },
     {
-        cmdName: "bakeHelper",
-        humanName: "Helper",
-        cmd: "helper",
+        cmdName: "bake.test",
+        cmd: "bake test",
+        successMessage: "Test successfully created!",
+        arguments: [
+            {
+                name: 'Class type',
+                call: '',
+                placeholder: 'Please select class type...',
+                type: 'pick',
+                values: [
+                    { label: 'Entity' },
+                    { label: 'Table' },
+                    { label: 'Controller' },
+                    { label: 'Component' },
+                    { label: 'Behavior' },
+                    { label: 'Helper' },
+                    { label: 'Shell' },
+                    { label: 'Task' },
+                    { label: 'ShellHelper' },
+                    { label: 'Cell' },
+                    { label: 'Form' },
+                    { label: 'Mailer' },
+                    { label: 'Command' },
+                ]
+            },
+            {
+                name: 'Class name',
+                call: '',
+                placeholder: 'Please enter class name...',
+                type: 'input'
+            },
+            {
+                name: 'Plugin',
+                call: '--plugin',
+                placeholder: 'Please enter plugin name or leave empty',
+                type: 'input'
+            },
+            {
+                name: 'Prefix',
+                call: '--prefix',
+                placeholder: 'Please enter prefix name or leave empty',
+                type: 'input'
+            }
+        ],
         options: {
-            prefix: false,
-            plugin: true,
             openFileCreated: true,
-            forceOverwrite: true,
-            selectClassType: false,
+            forceOverwrite: true
         }
     },
-    {
-        cmdName: "bakePlugin",
-        humanName: "Plugin",
-        cmd: "puglin",
+    // Migrations commands
+    { 
+        cmdName: "migrations.migrate",
+        cmd: "migrations migrate",
+        successMessage: "Migration(s) successfully migrated!",
         options: {
-            prefix: false,
-            plugin: false,
             openFileCreated: false,
-            forceOverwrite: true,
-            selectClassType: false,
-        }
-    },
-    {
-        cmdName: "bakeMigration",
-        humanName: "Migration",
-        cmd: "migration",
-        options: {
-            prefix: false,
-            plugin: false,
-            openFileCreated: true,
             forceOverwrite: false,
-            selectClassType: false,
         }
     },
-    {
-        cmdName: "bakeShell",
-        humanName: "Shell",
-        cmd: "shell",
+    // Cache commands
+    { 
+        cmdName: "cache.clear",
+        cmd: "cache clear",
+        successMessage: "Cache successfully cleared!",
+        arguments: [
+            {
+                name: 'Type',
+                call: '',
+                placeholder: 'Please enter cache type...',
+                type: 'input'
+            }
+        ],
         options: {
-            prefix: false,
-            plugin: true,
-            openFileCreated: true,
-            forceOverwrite: true,
-            selectClassType: false,
+            openFileCreated: false,
+            forceOverwrite: false,
         }
     },
-    {
-        cmdName: "bakeBehavior",
-        humanName: "Behavior",
-        cmd: "behavior",
+    { 
+        cmdName: "cache.clear_all",
+        cmd: "cache clear_all",
+        successMessage: "Caches successfully cleared!",
         options: {
-            prefix: false,
-            plugin: true,
-            openFileCreated: true,
-            forceOverwrite: true,
-            selectClassType: false,
+            openFileCreated: false,
+            forceOverwrite: false,
         }
     },
-    {
-        cmdName: "bakeTask",
-        humanName: "Task",
-        cmd: "task",
-        options: {
-            prefix: false,
-            plugin: true,
-            openFileCreated: true,
-            forceOverwrite: true,
-            selectClassType: false,
-        }
-    },
-    {
-        cmdName: "bakeMailer",
-        humanName: "Mailer",
-        cmd: "mailer",
-        options: {
-            prefix: false,
-            plugin: true,
-            openFileCreated: true,
-            forceOverwrite: true,
-            selectClassType: false,
-        }
-    },
-    {
-        cmdName: "bakeFixture",
-        humanName: "Fixture",
-        cmd: "fixture",
-        options: {
-            prefix: false,
-            plugin: true,
-            openFileCreated: true,
-            forceOverwrite: true,
-            selectClassType: false,
-        }
-    },
-    {
-        cmdName: "bakeMiddleware",
-        humanName: "Middleware",
-        cmd: "middleware",
-        options: {
-            prefix: false,
-            plugin: true,
-            openFileCreated: true,
-            forceOverwrite: true,
-            selectClassType: false,
-        }
-    },
-    {
-        cmdName: "bakeController",
-        humanName: "Controller",
-        cmd: "controller",
-        options: {
-            prefix: true,
-            plugin: true,
-            openFileCreated: true,
-            forceOverwrite: true,
-            selectClassType: false,
-        }
-    },
-    {
-        cmdName: "bakeTest",
-        humanName: "Test",
-        cmd: "test",
-        options: {
-            prefix: true,
-            plugin: true,
-            openFileCreated: true,
-            forceOverwrite: true,
-            selectClassType: true,
-        }
-    },
+
 ]

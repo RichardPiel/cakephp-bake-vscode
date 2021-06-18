@@ -1,5 +1,8 @@
+
 # CakePHP Bake
 Extension that allows to easily bake models, controllers, templates, shells, commands, helpers, cells, plugins, components and many mores in CakePHP 3/4.
+
+![](images/users_crud.gif)
 
 ## Requirements
 

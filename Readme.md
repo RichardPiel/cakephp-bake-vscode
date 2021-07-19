@@ -12,6 +12,12 @@ Specify the path of your PHP executable or leave the default value: `php`
 
 > Press `⇧⌘P (Shift + Command + P)` for macOS, `Ctrl+Shift+P` for Windows and Linux distributions to show command palette. Type the following command names.
 
+### Extra Commands :boom:
+
+| Commands |      Description       |
+|----------|---------------|
+|CakePHP: Custom command| Run custom command from your project |
+
 ### Bake Commands
 
 | Commands |      Description       |

@@ -3,10 +3,9 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { stringify } from "node:querystring";
-import { window, commands, ExtensionContext, workspace, Uri } from "vscode";
+import { window, commands, ExtensionContext, workspace, Uri, Terminal } from "vscode";
 import { commandsList } from "./commands";
-import { extractFilenameFromStdout, asyncForEach, getListCommands } from "./tools";
+import { extractFilenameFromStdout, asyncForEach, getListCommands, getCustomCommands } from "./tools";
 
 const cp = require("child_process");
 const stripAnsi = require("strip-ansi");
@@ -15,12 +14,33 @@ const fs = require('fs')
 
 let config = workspace.getConfiguration('cakephp-bake')
 let phpLocation = config.get<string | null>('php.location', 'php')
-
+const directorySeparator = require('path').sep
 const workspacePath = workspace.asRelativePath(
 	workspace.workspaceFolders![0].uri
 );
 
-export function activate(context: ExtensionContext) {
+export async function activate(context: ExtensionContext) {
+
+	let a = await getCustomCommands(`${workspacePath}\\src\\Command`)
+
+	context.subscriptions.push(commands.registerCommand(`cakephp.custom.command`, async () => {
+		const picked = await window.showQuickPick(a, { placeHolder: 'Please select custom command to execute...' });
+		if (picked) {
+			let cmd = `${phpLocation} ${workspacePath}${directorySeparator}bin${directorySeparator}cake.php ${picked.label}`;
+			let activeTerminals = (<any>window).terminals.length;
+			if (activeTerminals > 0) {
+
+				const terminals = <Terminal[]>(<any>window).terminals;
+				terminals[0].show();
+				terminals[0].sendText(cmd);
+			} else {
+				const terminal = window.createTerminal(`CakePHP Bake`);
+				terminal.show();
+				terminal.sendText(cmd);
+			}
+		}
+	}));
+
 	context.subscriptions.push(commands.registerCommand(`cakephp.commands`, async () => {
 		const picked = await window.showQuickPick(getListCommands(), { placeHolder: 'Please select command to execute...' });
 		if (picked) {
@@ -47,7 +67,7 @@ export function activate(context: ExtensionContext) {
 			
 			context.subscriptions.push(commands.registerCommand(`cakephp.${cmdToExec.cmdName}`, async () => {
 
-				let cmd = `${phpLocation} ${workspacePath}/bin/cake.php ${cmdToExec.cmd}`;
+				let cmd = `${phpLocation} ${workspacePath}${directorySeparator}bin${directorySeparator}cake.php ${cmdToExec.cmd}`;
 
 				if (cmdToExec.arguments) {
 
@@ -120,7 +140,7 @@ export function activate(context: ExtensionContext) {
 	
 	context.subscriptions.push(commands.registerCommand('cakephp-bake.migrationsMigrate', async () => {
 
-		let cmd = `php ${workspacePath}/bin/cake.php migrations migrate`;
+		let cmd = `php ${workspacePath}${directorySeparator}bin${directorySeparator}cake.php migrations migrate`;
 
 		cp.exec(cmd, {"timeout": timeout} , (err: string, stdout: string, stderr: string) => {
 			if (stderr) {
@@ -133,4 +153,5 @@ export function activate(context: ExtensionContext) {
 		});
 
 	}));
+	
 }

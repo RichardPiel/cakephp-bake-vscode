@@ -24,7 +24,7 @@
 		"shell",
 		"command"
 	],
-	"version": "0.1.11",
+	"version": "0.1.12",
 	"engines": {
 		"vscode": "^1.53.0"
 	},
@@ -36,7 +36,7 @@
 		"url": "https://github.com/RichardPiel/cakephp-bake-vscode"
 	},
 	"activationEvents": [
-		"workspaceContains:**/bin/cake"
+		"onStartupFinished"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -47,6 +47,11 @@
 					"type": "string",
 					"default": "php",
 					"description": "Sets a custom location to the php executable"
+				},
+				"cakephp.bake.project.location": {
+					"type": "string",
+					"default": null,
+					"description": "Sets a relative location to the application if it is not at the root of your workspace (e.g \"www/\")"
 				}
 			}
 		},

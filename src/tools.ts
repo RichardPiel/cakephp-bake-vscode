@@ -1,9 +1,9 @@
 
-import { workspace } from "vscode";
+import { workspace, window } from "vscode";
 const ds = require('path').sep
 const semver = require('semver')
-const { promisify } = require('util')
 const util = require('util');
+const directorySeparator = require('path').sep
 
 /**
  * Permet d'extraire le chemin du premier fichier
@@ -32,7 +32,7 @@ export async function asyncForEach(array: any, callback: any) {
  * @returns commands
  */
 export function getListCommands(): Array<{ label: string, description: string }> {
-  const meta = require('../package.json')
+  const meta = require(`${finalAppLocation()}${directorySeparator}package.json`)
   return meta.contributes.commands
     .map((c: { command: string, title: string }, index: number) => {
       return {
@@ -41,26 +41,36 @@ export function getListCommands(): Array<{ label: string, description: string }>
       }
     });
 }
-export async function test() {
-  return "Hello"
-}
 
-export async function getCustomCommands(commandFolder: String): Promise<{ label: string; description: string; }[]> {
+export async function getCustomCommands(): Promise<{ label: string; description: string; }[]> {
+
+  const dirsToScan = [
+    "Command",
+    "Shell"
+  ];
 
   const fs = require('fs');
   const readdir = util.promisify(fs.readdir);
-  let files;
-  try {
-    files = await readdir(commandFolder);
-  } catch (err) {
-    console.log(err);
-  }
-  return files.map((file: string, index: number) => {
-    return {
-      label: file.replace("Command.php", ""),
-      description: file
+  let filesFound: {label: string, description: string}[] = [];
+
+  for (const dir of dirsToScan) {
+    let files = [];
+    try {
+      files = await readdir(`${finalAppLocation()}${directorySeparator}src${directorySeparator}${dir}`);
+    } catch (err) {
+      window.showErrorMessage(err);
     }
-  });
+
+    files.map((file: string, index: number) => {
+      filesFound.push({
+        label: file.replace(`${dir}.php`, ""),
+        description: file
+      })
+    });
+  }
+  
+  return filesFound;
+
 }
 
 /**
@@ -104,12 +114,19 @@ export function inArray(needle: String, haystack: Array<String>): boolean {
 * @returns commands
 */
 export function getCakeMajorVersion(): number {
-  const workspacePath = workspace.asRelativePath(
-    workspace.workspaceFolders![0].uri
-  );
-  const meta = require(workspacePath + ds + 'composer.json')
+ 
+  const meta = require(finalAppLocation() + directorySeparator + 'composer.json')
   if (meta.require['cakephp/cakephp']) {
     return semver.minVersion(meta.require['cakephp/cakephp']).major;
   }
   return 0;
+}
+
+export function finalAppLocation(): string {
+  const workspacePath = workspace.asRelativePath(
+    workspace.workspaceFolders![0].uri
+  );
+  let config = workspace.getConfiguration('cakephp-bake')
+  const projectLocation = config.get<string | null>('project.location', null)
+  return `${workspacePath}${projectLocation ?? ""}`;
 }

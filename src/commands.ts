@@ -9,12 +9,14 @@ export const commandsList = [
             {
                 call: '',
                 placeholder: 'Please enter model name...',
-                type: 'input'
+                type: 'input',
+                required: true
             },
             {
                 call: '--plugin',
                 placeholder: 'Please enter plugin name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {
@@ -30,17 +32,20 @@ export const commandsList = [
             {
                 call: '',
                 placeholder: 'Please enter controller name...',
-                type: 'input'
+                type: 'input',
+                required: true
             },
             {
                 call: '--prefix',
                 placeholder: 'Please enter prefix name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             },
             {
                 call: '--plugin',
                 placeholder: 'Please enter plugin name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {
@@ -57,19 +62,22 @@ export const commandsList = [
                 name: 'Cell name',
                 call: '',
                 placeholder: 'Please enter cell name...',
-                type: 'input'
+                type: 'input',
+                required: true
             },
             {
                 name: 'Prefix',
                 call: '--prefix',
                 placeholder: 'Please enter prefix name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             },
             {
                 name: 'Plugin',
                 call: '--plugin',
                 placeholder: 'Please enter plugin name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {
@@ -86,13 +94,15 @@ export const commandsList = [
                 name: 'Command name',
                 call: '',
                 placeholder: 'Please enter command name...',
-                type: 'input'
+                type: 'input',
+                required: true
             },
             {
                 name: 'Plugin',
                 call: '--plugin',
                 placeholder: 'Please enter plugin name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {
@@ -109,13 +119,15 @@ export const commandsList = [
                 name: 'Shell name',
                 call: '',
                 placeholder: 'Please enter shell name...',
-                type: 'input'
+                type: 'input',
+                required: true
             },
             {
                 name: 'Plugin',
                 call: '--plugin',
                 placeholder: 'Please enter plugin name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {
@@ -132,7 +144,8 @@ export const commandsList = [
                 name: 'Form name',
                 call: '',
                 placeholder: 'Please enter form name...',
-                type: 'input'
+                type: 'input',
+                required: true
             }
         ],
         options: {
@@ -148,17 +161,20 @@ export const commandsList = [
             {
                 call: '',
                 placeholder: 'Please enter helper name...',
-                type: 'input'
+                type: 'input',
+                required: true
             },
             {
                 call: '--prefix',
                 placeholder: 'Please enter prefix name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             },
             {
                 call: '--plugin',
                 placeholder: 'Please enter plugin name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {
@@ -174,7 +190,8 @@ export const commandsList = [
             {
                 call: '',
                 placeholder: 'Please enter plugin name...',
-                type: 'input'
+                type: 'input',
+                required: true
             },
         ],
         options: {
@@ -190,12 +207,14 @@ export const commandsList = [
             {
                 call: '',
                 placeholder: 'Please enter migration name...',
-                type: 'input'
+                type: 'input',
+                required: true
             },
             {
                 call: '--plugin',
                 placeholder: 'Please enter plugin name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {
@@ -211,12 +230,14 @@ export const commandsList = [
             {
                 call: '',
                 placeholder: 'Please enter migration name...',
-                type: 'input'
+                type: 'input',
+                required: true
             },
             {
                 call: '--plugin',
                 placeholder: 'Please enter plugin name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {
@@ -232,12 +253,14 @@ export const commandsList = [
             {
                 call: '',
                 placeholder: 'Please enter behavior name...',
-                type: 'input'
+                type: 'input',
+                required: true
             },
             {
                 call: '--plugin',
                 placeholder: 'Please enter plugin name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {
@@ -253,12 +276,14 @@ export const commandsList = [
             {
                 call: '',
                 placeholder: 'Please enter task name...',
-                type: 'input'
+                type: 'input',
+                required: true
             },
             {
                 call: '--plugin',
                 placeholder: 'Please enter plugin name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {
@@ -274,12 +299,14 @@ export const commandsList = [
             {
                 call: '',
                 placeholder: 'Please enter mailer name...',
-                type: 'input'
+                type: 'input',
+                required: true
             },
             {
                 call: '--plugin',
                 placeholder: 'Please enter plugin name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {
@@ -295,12 +322,14 @@ export const commandsList = [
             {
                 call: '',
                 placeholder: 'Please enter fixture name...',
-                type: 'input'
+                type: 'input',
+                required: true
             },
             {
                 call: '--plugin',
                 placeholder: 'Please enter plugin name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {
@@ -316,12 +345,14 @@ export const commandsList = [
             {
                 call: '',
                 placeholder: 'Please enter policy name...',
-                type: 'input'
+                type: 'input',
+                required: true
             },
             {
                 call: '--plugin',
                 placeholder: 'Please enter plugin name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {
@@ -337,12 +368,14 @@ export const commandsList = [
             {
                 call: '',
                 placeholder: 'Please enter middleware name...',
-                type: 'input'
+                type: 'input',
+                required: true
             },
             {
                 call: '--plugin',
                 placeholder: 'Please enter plugin name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {
@@ -360,19 +393,22 @@ export const commandsList = [
                 name: 'Component name',
                 call: '',
                 placeholder: 'Please enter component name...',
-                type: 'input'
+                type: 'input',
+                required: true
             },
             {
                 name: 'Prefix',
                 call: '--prefix',
                 placeholder: 'Please enter prefix name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             },
             {
                 name: 'Plugin',
                 call: '--plugin',
                 placeholder: 'Please enter plugin name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {
@@ -389,19 +425,22 @@ export const commandsList = [
                 name: 'Model name',
                 call: '',
                 placeholder: 'Please enter model name...',
-                type: 'input'
+                type: 'input',
+                required: true
             },
             {
                 name: 'Prefix',
                 call: '--prefix',
                 placeholder: 'Please enter prefix name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             },
             {
                 name: 'Plugin',
                 call: '--plugin',
                 placeholder: 'Please enter plugin name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {
@@ -439,19 +478,22 @@ export const commandsList = [
                 name: 'Class name',
                 call: '',
                 placeholder: 'Please enter class name...',
-                type: 'input'
+                type: 'input',
+                required: false
             },
             {
                 name: 'Plugin',
                 call: '--plugin',
                 placeholder: 'Please enter plugin name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             },
             {
                 name: 'Prefix',
                 call: '--prefix',
                 placeholder: 'Please enter prefix name or leave empty',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {
@@ -479,7 +521,8 @@ export const commandsList = [
                 name: 'Type',
                 call: '',
                 placeholder: 'Please enter cache type...',
-                type: 'input'
+                type: 'input',
+                required: false
             }
         ],
         options: {

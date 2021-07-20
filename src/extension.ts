@@ -5,7 +5,7 @@
 
 import { window, commands, ExtensionContext, workspace, Uri, Terminal } from "vscode";
 import { commandsList } from "./commands";
-import { extractFilenameFromStdout, asyncForEach, getListCommands, getCustomCommands } from "./tools";
+import { extractFilenameFromStdout, asyncForEach, getListCommands, getCustomCommands, finalAppLocation } from "./tools";
 
 const cp = require("child_process");
 const stripAnsi = require("strip-ansi");
@@ -14,6 +14,7 @@ const fs = require('fs')
 
 let config = workspace.getConfiguration('cakephp-bake')
 let phpLocation = config.get<string | null>('php.location', 'php')
+
 const directorySeparator = require('path').sep
 const workspacePath = workspace.asRelativePath(
 	workspace.workspaceFolders![0].uri
@@ -21,12 +22,11 @@ const workspacePath = workspace.asRelativePath(
 
 export async function activate(context: ExtensionContext) {
 
-	let a = await getCustomCommands(`${workspacePath}\\src\\Command`)
-
+	let customCommands = await getCustomCommands()
 	context.subscriptions.push(commands.registerCommand(`cakephp.custom.command`, async () => {
-		const picked = await window.showQuickPick(a, { placeHolder: 'Please select custom command to execute...' });
+		const picked = await window.showQuickPick(customCommands, { placeHolder: 'Please select custom command to execute...' });
 		if (picked) {
-			let cmd = `${phpLocation} ${workspacePath}${directorySeparator}bin${directorySeparator}cake.php ${picked.label}`;
+			let cmd = `${phpLocation} ${finalAppLocation()}${directorySeparator}bin${directorySeparator}cake.php ${picked.label}`;
 			let activeTerminals = (<any>window).terminals.length;
 			if (activeTerminals > 0) {
 
@@ -67,12 +67,13 @@ export async function activate(context: ExtensionContext) {
 			
 			context.subscriptions.push(commands.registerCommand(`cakephp.${cmdToExec.cmdName}`, async () => {
 
-				let cmd = `${phpLocation} ${workspacePath}${directorySeparator}bin${directorySeparator}cake.php ${cmdToExec.cmd}`;
+				let cmd = `${phpLocation} ${finalAppLocation()}${directorySeparator}bin${directorySeparator}cake.php ${cmdToExec.cmd}`;
 
 				if (cmdToExec.arguments) {
 
 					await asyncForEach(cmdToExec.arguments, async (argument: {
 						call: string
+						required: boolean,
 						placeholder: string,
 						type: string,
 						values: Array<{ label: string }>,
@@ -80,7 +81,12 @@ export async function activate(context: ExtensionContext) {
 
 						switch (argument.type) {
 							case 'input':
-								const input = await window.showInputBox({ placeHolder: argument.placeholder });
+								const input = await window.showInputBox({ 
+									placeHolder: argument.placeholder,
+									validateInput: text => {
+										return text || !argument.required ? null : 'Required!';  // return null if validates
+									}
+								 });
 								if (input) {
 									cmd = `${cmd} ${argument.call} ${input}`;
 								}
@@ -140,7 +146,7 @@ export async function activate(context: ExtensionContext) {
 	
 	context.subscriptions.push(commands.registerCommand('cakephp-bake.migrationsMigrate', async () => {
 
-		let cmd = `php ${workspacePath}${directorySeparator}bin${directorySeparator}cake.php migrations migrate`;
+		let cmd = `php ${finalAppLocation()}${directorySeparator}bin${directorySeparator}cake.php migrations migrate`;
 
 		cp.exec(cmd, {"timeout": timeout} , (err: string, stdout: string, stderr: string) => {
 			if (stderr) {

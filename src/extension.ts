@@ -12,7 +12,7 @@ const stripAnsi = require("strip-ansi");
 const timeout = 2000;
 const fs = require('fs')
 
-let config = workspace.getConfiguration('cakephp-bake')
+let config = workspace.getConfiguration('cakephp.bake')
 let phpLocation = config.get<string | null>('php.location', 'php')
 
 const directorySeparator = require('path').sep

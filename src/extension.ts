@@ -15,10 +15,7 @@ const fs = require('fs')
 let config = workspace.getConfiguration('cakephp.bake')
 let phpLocation = config.get<string | null>('php.location', 'php')
 
-const directorySeparator = require('path').sep
-const workspacePath = workspace.asRelativePath(
-	workspace.workspaceFolders![0].uri
-);
+const directorySeparator = "/"
 
 export async function activate(context: ExtensionContext) {
 

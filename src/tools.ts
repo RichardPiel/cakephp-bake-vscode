@@ -1,6 +1,5 @@
 
 import { workspace, window } from "vscode";
-const ds = require('path').sep
 const semver = require('semver')
 const util = require('util');
 const directorySeparator = require('path').sep
@@ -51,7 +50,7 @@ export async function getCustomCommands(): Promise<{ label: string; description:
 
   const fs = require('fs');
   const readdir = util.promisify(fs.readdir);
-  let filesFound: {label: string, description: string}[] = [];
+  let filesFound: { label: string, description: string }[] = [];
 
   for (const dir of dirsToScan) {
     let files = [];
@@ -68,7 +67,7 @@ export async function getCustomCommands(): Promise<{ label: string; description:
       })
     });
   }
-  
+
   return filesFound;
 
 }
@@ -85,7 +84,7 @@ export function ucFirst(text: String): typeof text {
 /**
 * camelCase function
 * @param text 
-* @returns 
+* @returns text
 */
 export function toCamelCase(text: String): typeof text {
   return text.replace(/([-_][a-z])/ig, ($1) => {
@@ -99,7 +98,7 @@ export function toCamelCase(text: String): typeof text {
 * inArray function
 * @param needle 
 * @param haystack 
-* @returns 
+* @returns  boolean
 */
 export function inArray(needle: String, haystack: Array<String>): boolean {
   var length = haystack.length;
@@ -110,11 +109,11 @@ export function inArray(needle: String, haystack: Array<String>): boolean {
 }
 
 /**
-* Retourne les commandes de l'extension
-* @returns commands
+* Retourne la version majeure de CakePHP
+* @returns number
 */
 export function getCakeMajorVersion(): number {
- 
+
   const meta = require(finalAppLocation() + directorySeparator + 'composer.json')
   if (meta.require['cakephp/cakephp']) {
     return semver.minVersion(meta.require['cakephp/cakephp']).major;
@@ -126,7 +125,11 @@ export function finalAppLocation(): string {
   const workspacePath = workspace.asRelativePath(
     workspace.workspaceFolders![0].uri
   );
-  let config = workspace.getConfiguration('cakephp-bake')
+  let config = workspace.getConfiguration('cakephp.bake')
   const projectLocation = config.get<string | null>('project.location', null)
-  return `${workspacePath}${projectLocation ?? ""}`;
+  if (projectLocation !== null) {
+    return projectLocation;
+  }
+
+  return workspacePath;
 }

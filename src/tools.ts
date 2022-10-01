@@ -32,7 +32,6 @@ export async function getCustomCommands(): Promise<{ label: string; description:
     try {
       files = await readdir(`${finalAppLocation()}${directorySeparator}src${directorySeparator}${dir}`);
     } catch (err) {
-      window.showErrorMessage(err);
     }
 
     files.map((file: string, index: number) => {

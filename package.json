@@ -24,7 +24,7 @@
 		"shell",
 		"command"
 	],
-	"version": "0.1.14",
+	"version": "0.1.15",
 	"engines": {
 		"vscode": "^1.53.0"
 	},

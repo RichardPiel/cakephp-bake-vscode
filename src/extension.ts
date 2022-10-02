@@ -19,8 +19,8 @@ const directorySeparator = "/"
 
 export async function activate(context: vscode.ExtensionContext) {
 
-	let customCommands = await getCustomCommands()
 	context.subscriptions.push(vscode.commands.registerCommand(`cakephp.custom.command`, async () => {
+		let customCommands = await getCustomCommands()
 		const picked = await vscode.window.showQuickPick(customCommands, { placeHolder: 'Please select custom command to execute...' });
 		if (picked) {
 			let cmd = `${phpLocation} ${finalAppLocation()}${directorySeparator}bin${directorySeparator}cake.php ${picked.label}`;

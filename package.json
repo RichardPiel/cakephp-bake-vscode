@@ -43,6 +43,17 @@
 		"configuration": {
 			"title": "CakePHP Bake",
 			"properties": {
+				"cakephp.bake.exec.openFileCreatedMode": {
+					"type": "string",
+					"default": "choice",
+					"description": "Decide whether and how you want to open the generated files.",
+					"enum": ["off", "all", "choice"],
+					"enumDescriptions": [
+					  "Don't open files created",
+					  "Always open all files created",
+					  "Choose the files to be opened"
+					]
+				},
 				"cakephp.bake.php.location": {
 					"type": "string",
 					"default": "php",

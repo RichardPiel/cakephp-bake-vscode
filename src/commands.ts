@@ -1,10 +1,9 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import { asyncForEach, finalAppLocation } from "./tools";
+import { File } from "./file";
 const cp = require("child_process");
 const stripAnsi = require("strip-ansi");
-let config = vscode.workspace.getConfiguration('cakephp.bake')
-let phpLocation = config.get<string | null>('php.location', 'php')
 const directorySeparator = require('path').sep
 export class CommandsProvider {
 
@@ -70,6 +69,10 @@ export class Command {
 
     public async execute(): Promise<void> {
 
+        let config = vscode.workspace.getConfiguration('cakephp.bake')
+        let openFileCreatedMode = config.get<string | null>('exec.openFileCreatedMode', 'choice')
+        let phpLocation = config.get<string | null>('php.location', 'php')
+
         let cmd = `${phpLocation} ${finalAppLocation()}${directorySeparator}bin${directorySeparator}cake.php ${this.cmd}`;
 
         if (this.args) {
@@ -121,13 +124,11 @@ export class Command {
             async (err: Error | undefined, stdout: string, stderr: string) => {
 
                 if (err) {
-
-                    vscode.window.showErrorMessage(stripAnsi(err.message));
+                    vscode.window.showErrorMessage(stdout);
                     return;
-
                 }
+                
                 if (stderr) {
-
                     vscode.window.showErrorMessage(stripAnsi(stderr));
                     return;
                 }
@@ -136,42 +137,51 @@ export class Command {
 
                 if (this.options && this.options.openFileCreated) {
 
+                    if (openFileCreatedMode === 'off') {
+                        return;
+                    }
+
                     let getFilesRegexp = new RegExp("\`(?<file>(.*?)\.php)\`", "g");
                     let match = getFilesRegexp.exec(stdout);
                     let files: Array<string> = [];
 
-                    // extract all files from stdout
+                    // extract all files path from stdout
                     while (match != null) {
                         files.push(match[1]);
                         match = getFilesRegexp.exec(stdout);
                     }
 
-                    const filesPickable = files.map((filePath: string, index: number) => {
-                        return {
-                            label: filePath,
-                            picked: index == 0 // first file is picked by default
-                        }
-                    });
+                    /** 
+                     * open only selected files created by command
+                     */
+                    if (openFileCreatedMode === 'choice') {
 
-                    const pickedFiles = await vscode.window.showQuickPick(filesPickable, { placeHolder: 'Open file created?', canPickMany: true });
-                    if (pickedFiles) {
-
-                        pickedFiles.forEach((picked) => {
-
-                            const path = vscode.Uri.parse("file:///" + picked.label);
-
-                            if (!fs.existsSync(path.fsPath)) {
-                                vscode.window.showInformationMessage(`${path} not found!`);
-                                return;
+                        const filesPickable = files.map((filePath: string, index: number) => {
+                            return {
+                                label: filePath,
+                                picked: index == 0 // first file is picked by default
                             }
-
-                            vscode.workspace.openTextDocument(path)
-                                .then((doc) => {
-                                    vscode.window.showTextDocument(doc, { preview: false });
-                                });
                         });
 
+                        const pickedFiles = await vscode.window.showQuickPick(filesPickable, { placeHolder: 'Open file created?', canPickMany: true });
+                        if (pickedFiles) {
 
+                            pickedFiles.forEach((picked) => {
+                                (new File(picked.label)).open();
+                            });
+
+
+                        }
+                    }
+
+                    /** 
+                     * open all files created by command
+                     */
+                    if (openFileCreatedMode === 'all') {
+
+                        files.forEach((filePath: string) => {
+                            (new File(filePath)).open();
+                        });
                     }
                 }
             }

@@ -3,11 +3,10 @@ import * as fs from 'fs';
 
 export class File {
     
-    public constructor(public path: string) {
-
-    }
+    public constructor(public path: string) {}
 
     public open() {
+
         const path = vscode.Uri.parse("file:///" + this.path);
 
         if (!fs.existsSync(path.fsPath)) {

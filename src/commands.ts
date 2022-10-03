@@ -2,17 +2,18 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import { asyncForEach, finalAppLocation } from "./tools";
 import { File } from "./file";
+
 const cp = require("child_process");
 const stripAnsi = require("strip-ansi");
 const directorySeparator = require('path').sep
+const outputChannel = vscode.window.createOutputChannel("CakePHP Bake");
+
 export class CommandsProvider {
 
-    constructor(private context: vscode.ExtensionContext) {
-    }
+    constructor(private context: vscode.ExtensionContext) { }
 
     /**
      * Return list of commands to execute from commands.json
-     * 
      * 
      * @returns {Command[]}
      */
@@ -20,13 +21,13 @@ export class CommandsProvider {
 
         const commands: Command[] = [];
 
-        const commandsJson = fs.readFileSync(this.context.asAbsolutePath("commands.json"), "utf8")
-        const shortcutsData = JSON.parse(commandsJson);
+        const shortcutsData = JSON.parse(
+            fs.readFileSync(this.context.asAbsolutePath("commands.json"), "utf8")
+        );
 
         for (const cmd of shortcutsData) {
             commands.push(new Command(cmd.cmdName, cmd.cmd, cmd.successMessage, cmd.args, cmd.options));
         }
-
         return commands;
     }
 
@@ -124,12 +125,16 @@ export class Command {
             async (err: Error | undefined, stdout: string, stderr: string) => {
 
                 if (err) {
-                    vscode.window.showErrorMessage(stdout);
+                    vscode.window.showErrorMessage(err.message);
+                    outputChannel.appendLine(`${new Date().toLocaleString()}`);
+                    outputChannel.appendLine(stdout);
+                    outputChannel.show(true);
                     return;
                 }
                 
                 if (stderr) {
                     vscode.window.showErrorMessage(stripAnsi(stderr));
+                    
                     return;
                 }
 

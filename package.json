@@ -5,10 +5,10 @@
 	"description": "Run CakePHP commands within Visual Studio Code",
 	"icon": "images/We-bake-with-CakePHP.png",
 	"keywords": [
+		"cakephp",
 		"php",
 		"bake",
 		"framework",
-		"cakephp",
 		"bake",
 		"model",
 		"test",
@@ -24,11 +24,12 @@
 		"shell",
 		"command"
 	],
-	"version": "0.1.17",
+	"version": "0.1.18",
 	"engines": {
 		"vscode": "^1.71.0"
 	},
 	"categories": [
+		"Programming Languages",
 		"Other"
 	],
 	"repository": {

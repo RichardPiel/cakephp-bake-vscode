@@ -18,6 +18,7 @@
             }
         ],
         "options": {
+            "update": true,
             "openFileCreated": true,
             "forceOverwrite": true
         }

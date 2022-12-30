@@ -63,6 +63,7 @@ export class Command {
             values?: Array<{ label: string }>,
         }>,
         public options?: {
+            update: boolean;
             openFileCreated: boolean;
             forceOverwrite: boolean;
         }
@@ -75,6 +76,8 @@ export class Command {
         let phpLocation = config.get<string | null>('php.location', 'php')
 
         let cmd = `${phpLocation} ${finalAppLocation()}${directorySeparator}bin${directorySeparator}cake.php ${this.cmd}`;
+
+        let force = false;
 
         if (this.args) {
 
@@ -109,7 +112,18 @@ export class Command {
             })
         }
 
-        if (this.options && this.options.forceOverwrite) {
+        if (this.options && this.options.update) {
+
+            const update = await vscode.window.showQuickPick([{ label: 'No', picked: false }, { label: 'Yes', picked: true }], { placeHolder: 'Update Table and Entity files? (y/N)' });
+            if (update) {
+                if (update.label === "Yes") {
+                    cmd = `${cmd} --update --force`;
+                    force = true;
+                }
+            }
+        }
+
+        if (this.options && this.options.forceOverwrite && !force) {
 
             const overwrite = await vscode.window.showQuickPick([{ label: 'No', picked: true }, { label: 'Yes' }], { placeHolder: 'Overwrite? (y/N)' });
             if (overwrite) {
@@ -118,6 +132,8 @@ export class Command {
                 }
             }
         }
+
+        
 
         cp.exec(
             cmd.replace(/\s{2,}/g, ' '),
